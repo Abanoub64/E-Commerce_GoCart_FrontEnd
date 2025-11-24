@@ -19,13 +19,7 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+// select not used in AddUser
 import { Button } from "./ui/button";
 
 const formSchema = z.object({

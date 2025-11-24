@@ -20,27 +20,24 @@ const product: ProductType = {
   },
 };
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: { id: string };
-}) => {
+export const generateMetadata = async ({ params }: { params: Promise<{ id: string }> }) => {
   // TODO:get the product from db
   // TEMPORARY
+  await params;
   return {
     title: product.name,
-    describe: product.description,
+    description: product.description,
   };
 };
 
-const ProductPage = async ({
+export default async function ProductPage({
   params,
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ color: string; size: string }>;
-}) => {
-  const { size, color } = await searchParams;
+  searchParams?: Promise<{ color?: string; size?: string }>;
+}) {
+  const { size, color } = (await searchParams) || {};
 
   const selectedSize = size || (product.sizes[0] as string);
   const selectedColor = color || (product.colors[0] as string);
@@ -100,6 +97,4 @@ const ProductPage = async ({
       </div>
     </div>
   );
-};
-
-export default ProductPage;
+}
